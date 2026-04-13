@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import {
   Sparkles,
@@ -32,6 +31,20 @@ export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [email, setEmail] = useState("");
+
+  const heroMetrics = [
+    { value: "200+", label: "Institutions" },
+    { value: "12k+", label: "Docs processed" },
+    { value: "4.9/5", label: "Average rating" },
+    { value: "99.9%", label: "Uptime" },
+  ];
+
+  const proofPoints = [
+    "University of Excellence",
+    "Tech Institute",
+    "City College",
+    "Northview Academy",
+  ];
 
   const features = [
     {
@@ -190,10 +203,10 @@ export default function HomePage() {
   ];
 
   const stats = [
-    { number: "500+", label: "Documents Processed Daily" },
-    { number: "200+", label: "Institutions Trusted" },
-    { number: "99.9%", label: "Uptime Guarantee" },
-    { number: "70%", label: "Avg. Time Saved" },
+    { number: "1,248", label: "Docs routed weekly" },
+    { number: "18 min", label: "Avg. review handoff" },
+    { number: "86%", label: "Automated approvals" },
+    { number: "4.9/5", label: "User satisfaction" },
   ];
 
   const integrations = [
@@ -261,31 +274,132 @@ export default function HomePage() {
 
       <main className="relative z-10">
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-center max-w-4xl mx-auto">
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="inline-flex items-center gap-2 rounded-full border mb-8 px-4 py-2" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(26, 26, 26, 0.5)" }}>
-              <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#22c55e" }} />
-              <span style={{ color: "#e0e0e0", fontSize: "14px", fontWeight: "500" }}>Trusted by 200+ academic institutions</span>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-28">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="max-w-2xl">
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 mb-6 sm:mb-8" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(26, 26, 26, 0.5)" }}>
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#22c55e" }} />
+                <span style={{ color: "#e0e0e0", fontSize: "14px", fontWeight: "500" }}>Trusted by academic teams across 200+ institutions</span>
+              </motion.div>
+
+              <h1 className="font-display font-bold tracking-tight leading-[0.95] text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem]" style={{ color: "#ffffff" }}>
+                Transform academic document management into a streamlined workflow.
+              </h1>
+
+              <p className="mt-6 text-lg sm:text-xl lg:text-2xl max-w-xl leading-relaxed" style={{ color: "#d0d0d0" }}>
+                DocFlow automates document collection, AI extraction, faculty review, and student submissions so your team can move faster with fewer errors.
+              </p>
+
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="mt-8 flex flex-col sm:flex-row gap-4">
+                <button onClick={() => navigate("/auth")} className="px-8 py-4 rounded-lg text-white font-semibold transition-all w-full sm:w-auto" style={{ background: "linear-gradient(to right, #f97316, #ea580c)", boxShadow: "0 0 20px rgba(249, 115, 22, 0.3)" }} onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 30px rgba(249, 115, 22, 0.5)"; e.currentTarget.style.transform = "translateY(-1px)"; }} onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 20px rgba(249, 115, 22, 0.3)"; e.currentTarget.style.transform = "translateY(0)"; }}>Start Free Trial <ArrowRight className="ml-2 h-5 w-5 inline" /></button>
+                <button className="px-8 py-4 rounded-lg border font-semibold transition-all w-full sm:w-auto" style={{ borderColor: "#2a2a2a", color: "#f97316" }} onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(26, 26, 26, 1)")} onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}>Watch Demo</button>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.25 }} className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                {heroMetrics.map((metric) => (
+                  <div key={metric.label} className="rounded-xl border px-4 py-4 sm:py-5 text-center" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(26, 26, 26, 0.4)" }}>
+                    <div className="font-display text-2xl sm:text-3xl font-bold" style={{ color: "#f97316" }}>{metric.value}</div>
+                    <div className="mt-1 text-xs sm:text-sm uppercase tracking-[0.18em]" style={{ color: "#9ca3af" }}>{metric.label}</div>
+                  </div>
+                ))}
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="mt-8 flex flex-wrap items-center gap-3 text-sm" style={{ color: "#9ca3af" }}>
+                <span className="uppercase tracking-[0.2em] text-[11px]" style={{ color: "#6b7280" }}>Used by</span>
+                {proofPoints.map((item) => (
+                  <span key={item} className="rounded-full border px-3 py-1.5" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(26, 26, 26, 0.5)", color: "#d0d0d0" }}>{item}</span>
+                ))}
+              </motion.div>
             </motion.div>
 
-            <h1 className="font-display text-6xl md:text-7xl font-bold mb-6 leading-tight" style={{ color: "#ffffff" }}>Transform Academic Document Management</h1>
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">
+              <div className="absolute -inset-4 rounded-[2rem] blur-3xl" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.18) 0%, transparent 65%)" }} />
+              <div className="relative rounded-[2rem] border p-4 sm:p-5 lg:p-6 overflow-hidden" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(15, 15, 15, 0.92)" }}>
+                <div className="rounded-[1.6rem] border overflow-hidden" style={{ borderColor: "#2a2a2a", background: "linear-gradient(180deg, rgba(26,26,26,0.9) 0%, rgba(18,18,18,0.95) 100%)" }}>
+                  <div className="flex items-center justify-between px-4 sm:px-5 py-4 border-b" style={{ borderColor: "#2a2a2a" }}>
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.22em]" style={{ color: "#9ca3af" }}>Live product snapshot</p>
+                      <p className="mt-1 font-display text-lg sm:text-xl font-semibold" style={{ color: "#ffffff" }}>Admissions workflow</p>
+                    </div>
+                    <div className="rounded-full px-3 py-1 text-xs font-semibold" style={{ backgroundColor: "rgba(34,197,94,0.12)", color: "#22c55e" }}>Synced</div>
+                  </div>
 
-            <p className="text-xl md:text-2xl mb-12 leading-relaxed" style={{ color: "#d0d0d0" }}>DocFlow automates document collection, AI-powered extraction, faculty review, and student submissions — turning chaos into clarity.</p>
+                  <div className="grid gap-4 p-4 sm:p-5">
+                    <div className="grid gap-4 md:grid-cols-[1.1fr_0.9fr]">
+                      <div className="rounded-2xl border p-4 sm:p-5" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(26,26,26,0.75)" }}>
+                        <div className="flex items-center justify-between mb-4">
+                          <div>
+                            <p className="text-xs uppercase tracking-[0.2em]" style={{ color: "#6b7280" }}>Incoming</p>
+                            <p className="mt-1 text-base sm:text-lg font-semibold" style={{ color: "#ffffff" }}>Faculty application pack</p>
+                          </div>
+                          <FileText className="h-5 w-5" style={{ color: "#f97316" }} />
+                        </div>
+                        <div className="space-y-3">
+                          {[
+                            { label: "Transcript", state: "Verified", tone: "#22c55e" },
+                            { label: "Photo ID", state: "Queued", tone: "#f97316" },
+                            { label: "Consent form", state: "Pending", tone: "#94a3b8" },
+                          ].map((item) => (
+                            <div key={item.label} className="flex items-center justify-between rounded-xl px-3 py-3" style={{ backgroundColor: "rgba(15,15,15,0.7)" }}>
+                              <span style={{ color: "#d0d0d0" }}>{item.label}</span>
+                              <span className="rounded-full px-2.5 py-1 text-[11px] font-semibold" style={{ backgroundColor: `${item.tone}1f`, color: item.tone }}>{item.state}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
 
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="flex flex-col md:flex-row gap-4 justify-center">
-              <button onClick={() => navigate("/auth")} className="px-8 py-4 rounded-lg text-white font-semibold transition-all" style={{ background: "linear-gradient(to right, #f97316, #ea580c)", boxShadow: "0 0 20px rgba(249, 115, 22, 0.3)" }} onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 30px rgba(249, 115, 22, 0.5)"; e.currentTarget.style.transform = "scale(1.02)"; }} onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 0 20px rgba(249, 115, 22, 0.3)"; e.currentTarget.style.transform = "scale(1)"; }}>Start Free Trial <ArrowRight className="ml-2 h-5 w-5 inline" /></button>
-              <button className="px-8 py-4 rounded-lg border font-semibold transition-all" style={{ borderColor: "#2a2a2a", color: "#f97316" }} onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(26, 26, 26, 1)")} onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}>Watch Demo</button>
-            </motion.div>
-          </motion.div>
+                      <div className="grid gap-4">
+                        <div className="rounded-2xl border p-4 sm:p-5" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(26,26,26,0.75)" }}>
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-xs uppercase tracking-[0.2em]" style={{ color: "#6b7280" }}>Automation</span>
+                            <Zap className="h-4 w-4" style={{ color: "#f97316" }} />
+                          </div>
+                          <div className="text-3xl font-display font-bold" style={{ color: "#ffffff" }}>18 min</div>
+                          <p className="mt-2 text-sm" style={{ color: "#9ca3af" }}>Average turnaround from upload to routed review.</p>
+                        </div>
 
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }} className="mt-20 rounded-2xl border p-1 overflow-hidden" style={{ borderColor: "#2a2a2a" }}>
-            <div className="w-full h-96 rounded-xl flex items-center justify-center" style={{ backgroundColor: "rgba(26, 26, 26, 0.5)" }}>
-              <div className="text-center">
-                <BarChart3 className="h-16 w-16 mx-auto mb-4" style={{ color: "#f97316" }} />
-                <p style={{ color: "#888" }}>Dashboard Preview</p>
+                        <div className="rounded-2xl border p-4 sm:p-5" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(26,26,26,0.75)" }}>
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-xs uppercase tracking-[0.2em]" style={{ color: "#6b7280" }}>Live queue</span>
+                            <BarChart3 className="h-4 w-4" style={{ color: "#f97316" }} />
+                          </div>
+                          <div className="space-y-2">
+                            {[
+                              { label: "Ready for review", width: "82%" },
+                              { label: "Awaiting docs", width: "54%" },
+                              { label: "Completed today", width: "91%" },
+                            ].map((bar) => (
+                              <div key={bar.label}>
+                                <div className="mb-1 flex items-center justify-between text-xs" style={{ color: "#9ca3af" }}>
+                                  <span>{bar.label}</span>
+                                  <span>{bar.width}</span>
+                                </div>
+                                <div className="h-2 rounded-full bg-white/5 overflow-hidden">
+                                  <div className="h-full rounded-full" style={{ width: bar.width, background: "linear-gradient(to right, #f97316, #ea580c)" }} />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      {[
+                        { label: "Documents this week", value: "1,248" },
+                        { label: "Automated approvals", value: "86%" },
+                      ].map((item) => (
+                        <div key={item.label} className="rounded-2xl border p-4" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(26,26,26,0.65)" }}>
+                          <p className="text-xs uppercase tracking-[0.18em]" style={{ color: "#6b7280" }}>{item.label}</p>
+                          <p className="mt-2 font-display text-2xl sm:text-3xl font-bold" style={{ color: "#f97316" }}>{item.value}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </section>
 
         {/* Stats Section */}

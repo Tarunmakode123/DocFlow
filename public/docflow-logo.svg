@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" fill="none">
+  <defs>
+    <linearGradient id="docflowGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </linearGradient>
+    <linearGradient id="docflowPaper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F5F5F7"/>
+      <stop offset="100%" stop-color="#E6E8ED"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="360" rx="36" fill="#0F0F1A"/>
+
+  <rect x="40" y="38" width="342" height="284" rx="42" fill="#25253D" stroke="url(#docflowGrad)" stroke-width="4"/>
+  <path d="M135 92h126l55 55v118H135V92Z" fill="url(#docflowPaper)"/>
+  <path d="M261 92v55h55" stroke="#D5D9E3" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="103" y="214" width="188" height="66" rx="33" fill="url(#docflowGrad)"/>
+  <path d="M134 244l18 18 18-18M164 244l18 18 18-18M220 244l11-11 11 11 11-11" stroke="#FFF3EA" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="254" cy="244" r="14" fill="#FFF3EA" opacity="0.95"/>
+  <circle cx="254" cy="244" r="6" fill="url(#docflowGrad)"/>
+  <path d="M290 88l10 20 20 10-20 10-10 20-10-20-20-10 20-10 10-20Z" fill="#FF7A1A"/>
+
+  <text x="448" y="184" font-family="Georgia, 'Times New Roman', serif" font-size="178" font-weight="700" letter-spacing="-6">
+    <tspan fill="#FFFFFF">Doc</tspan><tspan fill="#FF8A2A">Flow</tspan>
+  </text>
+  <text x="454" y="266" font-family="Inter, Arial, sans-serif" font-size="34" letter-spacing="12" fill="#7E8799">AI · DOCUMENT MANAGEMENT</text>
+  <rect x="452" y="286" width="300" height="7" rx="4" fill="url(#docflowGrad)"/>
+</svg>

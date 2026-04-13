@@ -47,7 +47,7 @@ function AdminSidebar() {
             <span className="font-display text-lg font-bold text-gradient-orange block text-center">D</span>
           ) : (
             <div className="flex items-center gap-2">
-              <span className="font-display text-xl font-bold text-gradient-orange">DocFlow</span>
+              <img src="/docflow-logo.svg" alt="DocFlow" className="h-10 w-auto max-w-full" />
               <Badge className="bg-primary/10 text-primary border-primary/20 text-[10px]">Admin</Badge>
             </div>
           )}

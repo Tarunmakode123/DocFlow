@@ -46,7 +46,7 @@ function StudentSidebar() {
             <span className="font-display text-lg font-bold text-gradient-orange block text-center">D</span>
           ) : (
             <div className="flex items-center gap-2">
-              <span className="font-display text-xl font-bold text-gradient-orange">DocFlow</span>
+              <img src="/docflow-logo.svg" alt="DocFlow" className="h-10 w-auto max-w-full" />
               <Badge variant="outline" className="text-[10px] border-muted-foreground/30">Student</Badge>
             </div>
           )}

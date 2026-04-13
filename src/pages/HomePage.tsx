@@ -239,10 +239,7 @@ export default function HomePage() {
       <header className="sticky top-0 z-50 border-b" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(15, 15, 15, 0.95)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg" style={{ background: "linear-gradient(to br, #f97316, #ea580c)" }}>
-              <Sparkles className="h-6 w-6 text-white" strokeWidth={2.5} />
-            </div>
-            <h1 className="font-display text-2xl font-bold" style={{ color: "#ffffff" }}>DocFlow</h1>
+            <img src="/docflow-logo.svg" alt="DocFlow" className="h-11 w-auto" />
           </div>
 
           <nav className="hidden md:flex items-center gap-8">

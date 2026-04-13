@@ -183,12 +183,7 @@ export default function AuthPage() {
             >
               {/* Logo */}
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#f97316] to-[#ea580c]">
-                  <Sparkles className="h-6 w-6 text-white" strokeWidth={2.5} />
-                </div>
-                <h1 className="font-display text-2xl font-bold tracking-tight" style={{ color: "#ffffff" }}>
-                  DocFlow
-                </h1>
+                <img src="/docflow-logo.svg" alt="DocFlow" className="h-12 w-auto max-w-full" />
               </div>
 
               {/* Trust Badge */}

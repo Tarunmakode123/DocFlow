@@ -43,7 +43,7 @@ function AppSidebar() {
           {collapsed ? (
             <span className="font-display text-lg font-bold text-gradient-blue block text-center">D</span>
           ) : (
-            <span className="font-display text-xl font-bold text-gradient-blue">DocFlow</span>
+            <img src="/docflow-logo.svg" alt="DocFlow" className="h-10 w-auto max-w-full" />
           )}
         </div>
 

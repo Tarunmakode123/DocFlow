@@ -801,7 +801,7 @@ export default function StudentFillTemplate() {
                                 placeholder={field.detect_hint || `Enter ${field.label.toLowerCase()}`}
                                 className={`bg-background focus-ring-orange ${correction ? "border-red-400 border-2" : "border-border"}`}
                               />
-                            )}}
+                            )}
                             {computedErrors[field.field_id] && (
                               <p className="text-xs text-destructive">{computedErrors[field.field_id]}</p>
                             )}

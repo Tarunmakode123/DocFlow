@@ -109,6 +109,8 @@ export default function AdminSubmissions() {
   const [correctionOptions, setCorrectionOptions] = useState<CorrectionOption[]>([]);
   const [selectedCorrectionFields, setSelectedCorrectionFields] = useState<Record<string, boolean>>({});
   const [correctionComment, setCorrectionComment] = useState("");
+  const [correctionDeadline, setCorrectionDeadline] = useState<string>(""); // YYYY-MM-DD format
+  const [conflictMessage, setConflictMessage] = useState<string | null>(null);
 
   const loadData = async () => {
     if (!user) return;
@@ -402,7 +404,7 @@ export default function AdminSubmissions() {
     // Conflict detection: check if reviews have been changed by another faculty
     const { data: latestReviews, error: conflictCheckError } = await supabase
       .from("student_document_reviews" as any)
-      .select("student_document_id, review_status, updated_at")
+      .select("student_document_id, review_status, updated_at, reviewed_by, review_comment")
       .in("student_document_id", ids);
 
     if (conflictCheckError) {
@@ -410,21 +412,34 @@ export default function AdminSubmissions() {
     }
 
     // Check for conflicts: if any submission is no longer in "pending" status
-    const conflictedIds: string[] = [];
+    const conflicts: Array<{ id: string; oldStatus: string; newStatus: string; changedAt: string }> = [];
     (latestReviews || []).forEach((review: any) => {
       const currentStatus = reviewsBySubmission[review.student_document_id]?.review_status;
-      // Conflict if: existing review and current status is not "pending"
+      // Conflict if: existing review and current status differs from what we loaded
       if (review.review_status !== "pending" && review.review_status !== currentStatus) {
-        conflictedIds.push(review.student_document_id);
+        conflicts.push({
+          id: review.student_document_id,
+          oldStatus: currentStatus || "pending",
+          newStatus: review.review_status,
+          changedAt: review.updated_at,
+        });
       }
     });
 
-    if (conflictedIds.length > 0) {
-      // Refresh the conflicted submissions
+    if (conflicts.length > 0) {
+      // Build detailed conflict message
+      const firstConflict = conflicts[0];
+      const conflictTime = new Date(firstConflict.changedAt).toLocaleTimeString();
+      const conflictMsg = `⚠️ Conflict: ${conflicts.length} submission(s) were just modified by another faculty member.\n\nExample: "${firstConflict.id.substring(0, 8)}..." was marked as ${firstConflict.newStatus} at ${conflictTime}.\n\nRefreshing data...`;
+      setConflictMessage(conflictMsg);
+      
+      // Auto-dismiss after 5 seconds and refresh
+      setTimeout(() => setConflictMessage(null), 5000);
       await loadData();
+      
       return {
         ok: false as const,
-        error: `Conflict detected: ${conflictedIds.length} submission(s) were modified by another faculty member. Data refreshed.`,
+        error: conflictMsg,
       };
     }
 
@@ -507,6 +522,11 @@ export default function AdminSubmissions() {
     setCorrectionOptions([]);
     setSelectedCorrectionFields({});
     setCorrectionComment("Please correct the highlighted fields and resubmit.");
+    
+    // Set default deadline to 7 days from now
+    const defaultDeadline = new Date();
+    defaultDeadline.setDate(defaultDeadline.getDate() + 7);
+    setCorrectionDeadline(defaultDeadline.toISOString().split('T')[0]); // YYYY-MM-DD
 
     const [{ data: responseRows, error: responsesError }, { data: docFields, error: fieldsError }] = await Promise.all([
       supabase
@@ -555,6 +575,18 @@ export default function AdminSubmissions() {
       return;
     }
 
+    // Validate deadline is provided and is in the future
+    if (!correctionDeadline) {
+      toast({ title: "Deadline required", description: "Set a correction deadline for the student.", variant: "destructive" });
+      return;
+    }
+
+    const deadlineDate = new Date(correctionDeadline);
+    if (deadlineDate <= new Date()) {
+      toast({ title: "Invalid deadline", description: "Deadline must be in the future.", variant: "destructive" });
+      return;
+    }
+
     setCorrectionLoading(true);
 
     const { data: existingOpen } = await supabase
@@ -572,6 +604,7 @@ export default function AdminSubmissions() {
         student_document_id: correctionDialogFor.id,
         field_id: fieldId,
         comment: correctionComment || null,
+        correction_deadline: correctionDeadline,
         requested_by: user?.id,
       }));
 
@@ -606,6 +639,7 @@ export default function AdminSubmissions() {
     setCorrectionOptions([]);
     setSelectedCorrectionFields({});
     setCorrectionComment("");
+    setCorrectionDeadline("");
     setCorrectionLoading(false);
   };
 
@@ -677,6 +711,17 @@ export default function AdminSubmissions() {
           <p className="text-muted-foreground mt-1">Review completed student submissions before final acceptance</p>
         </div>
       </div>
+
+      {conflictMessage && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="mb-5 p-4 bg-fc-warning-bg border border-amber-200 rounded-lg"
+        >
+          <p className="text-xs sm:text-sm text-fc-warning whitespace-pre-wrap">{conflictMessage}</p>
+        </motion.div>
+      )}
 
       <div className="card-surface p-4 mb-5 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
         <div className="flex flex-wrap items-center gap-2">
@@ -892,6 +937,23 @@ export default function AdminSubmissions() {
                                 onChange={(e) => setCorrectionComment(e.target.value)}
                                 placeholder="Explain what to correct..."
                               />
+                            </div>
+
+                            <div className="space-y-1 mt-3">
+                              <Label htmlFor="correction-deadline" className="text-xs text-muted-foreground">
+                                Deadline for corrections <span className="text-fc-error">*</span>
+                              </Label>
+                              <Input
+                                id="correction-deadline"
+                                type="date"
+                                value={correctionDeadline}
+                                onChange={(e) => setCorrectionDeadline(e.target.value)}
+                                min={new Date().toISOString().split('T')[0]}
+                                className="text-sm"
+                              />
+                              <p className="text-xs text-muted-foreground mt-1">
+                                Student must resubmit corrected fields by this date
+                              </p>
                             </div>
 
                             <div className="flex justify-end gap-2 mt-3">

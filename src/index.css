@@ -1,0 +1,149 @@
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light theme (default) */
+    --background: 45 11% 97%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 25 95% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 36 25% 95%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 36 25% 95%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 33 100% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 38 20% 89%;
+    --input: 38 20% 89%;
+    --ring: 25 95% 53%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 36 25% 95%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 25 95% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 33 100% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 38 20% 89%;
+    --sidebar-ring: 25 95% 53%;
+
+    /* DocFlow semantic tokens */
+    --fc-orange-50: 33 100% 96%;
+    --fc-orange-100: 34 100% 92%;
+    --fc-orange-200: 32 98% 83%;
+    --fc-orange-300: 31 97% 72%;
+    --fc-orange-400: 27 96% 61%;
+    --fc-orange-500: 25 95% 53%;
+    --fc-orange-600: 21 91% 48%;
+    --fc-orange-700: 17 89% 40%;
+    --fc-orange-800: 15 79% 34%;
+
+    --fc-success: 142 72% 36%;
+    --fc-success-bg: 138 76% 97%;
+    --fc-warning: 38 90% 44%;
+    --fc-warning-bg: 48 96% 97%;
+    --fc-error: 0 84% 50%;
+    --fc-error-bg: 0 86% 97%;
+    --fc-info: 217 91% 53%;
+    --fc-info-bg: 214 95% 97%;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    --shadow-orange: 0 4px 14px -3px rgba(249, 115, 22, 0.25);
+
+    /* Dark theme for DocFlow SaaS landing */
+    --dark-bg: 0 0% 5.88%;
+    --dark-surface: 0 0% 10.2%;
+    --dark-surface-secondary: 0 0% 16.47%;
+    --dark-border: 0 0% 16.47%;
+    --dark-text-primary: 0 0% 100%;
+    --dark-text-secondary: 0 0% 62.75%;
+    --dark-text-tertiary: 0 0% 39.22%;
+    --dark-orange-primary: 25 94% 52%;
+    --dark-green-success: 142 76% 36%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Clash Display', system-ui, sans-serif;
+  }
+
+  code, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .card-surface {
+    @apply bg-card border border-border rounded-xl;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .card-surface-hover {
+    @apply card-surface transition-all duration-200;
+  }
+
+  .card-surface-hover:hover {
+    box-shadow: var(--shadow-md);
+    @apply border-[hsl(38,20%,82%)];
+  }
+
+  .text-gradient-orange {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(25,95%,53%)] to-[hsl(21,91%,48%)];
+  }
+
+  .focus-ring-orange {
+    @apply transition-all duration-150;
+  }
+
+  .focus-ring-orange:focus-within {
+    @apply border-primary ring-2 ring-[hsl(var(--fc-orange-100))];
+  }
+
+  /* Mammoth.js preview styles */
+  .docflow-preview table {
+    @apply w-full border-collapse my-4;
+  }
+  .docflow-preview td,
+  .docflow-preview th {
+    @apply border border-border p-2 text-sm;
+  }
+  .docflow-preview p {
+    @apply my-1 text-sm leading-relaxed text-foreground;
+  }
+  .docflow-preview h1 { @apply text-2xl font-bold my-3 text-foreground; }
+  .docflow-preview h2 { @apply text-xl font-semibold my-2 text-foreground; }
+  .docflow-preview h3 { @apply text-lg font-semibold my-2 text-foreground; }
+  .docflow-preview img { @apply max-w-full h-auto my-2; }
+}

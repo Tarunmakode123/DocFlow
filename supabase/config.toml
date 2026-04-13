@@ -1,0 +1,10 @@
+project_id = "tlraorhblauyyahlhbaz"
+
+[functions.init-storage]
+verify_jwt = false
+
+[functions.analyze-document]
+verify_jwt = false
+
+[functions.generate-document]
+verify_jwt = false

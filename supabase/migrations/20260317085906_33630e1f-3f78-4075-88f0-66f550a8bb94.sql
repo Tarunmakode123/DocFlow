@@ -1,0 +1,3 @@
+-- Intentionally left blank.
+-- This migration previously deleted all auth users and is now disabled
+-- to keep existing accounts safe when applying migrations.

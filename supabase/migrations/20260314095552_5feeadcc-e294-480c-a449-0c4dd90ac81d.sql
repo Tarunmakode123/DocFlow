@@ -1,0 +1,4 @@
+CREATE POLICY "Users can upload own templates" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'document-templates' AND auth.uid()::text = (storage.foldername(name))[1]);
+CREATE POLICY "Users can view own templates" ON storage.objects FOR SELECT USING (bucket_id = 'document-templates' AND auth.uid()::text = (storage.foldername(name))[1]);
+CREATE POLICY "Users can upload own generated docs" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'generated-documents' AND auth.uid()::text = (storage.foldername(name))[1]);
+CREATE POLICY "Users can view own generated docs" ON storage.objects FOR SELECT USING (bucket_id = 'generated-documents' AND auth.uid()::text = (storage.foldername(name))[1]);

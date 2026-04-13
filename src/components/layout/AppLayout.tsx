@@ -41,9 +41,13 @@ function AppSidebar() {
       <SidebarContent className="pt-4">
         <div className={`px-4 mb-6 ${collapsed ? "px-2" : ""}`}>
           {collapsed ? (
-            <span className="font-display text-lg font-bold text-gradient-blue block text-center">D</span>
+            <button type="button" onClick={() => navigate("/")} className="mx-auto block">
+              <img src="/favicon.svg" alt="DocFlow" className="h-8 w-8 sm:h-9 sm:w-9" />
+            </button>
           ) : (
-            <img src="/docflow-logo.svg" alt="DocFlow" className="h-10 w-auto max-w-full" />
+            <button type="button" onClick={() => navigate("/")} className="flex items-center justify-start">
+              <img src="/docflow-logo.svg" alt="DocFlow" className="h-9 w-auto max-w-full" />
+            </button>
           )}
         </div>
 

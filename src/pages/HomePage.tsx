@@ -238,9 +238,9 @@ export default function HomePage() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(15, 15, 15, 0.95)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
-            <img src="/docflow-logo.svg" alt="DocFlow" className="h-11 w-auto" />
-          </div>
+          <button type="button" onClick={() => navigate("/")} className="flex items-center">
+            <img src="/docflow-logo.svg" alt="DocFlow" className="h-9 w-auto sm:h-10 lg:h-11 max-w-full" />
+          </button>
 
           <nav className="hidden md:flex items-center gap-8">
             <a href="#features" style={{ color: "#d0d0d0" }} className="hover:text-white transition-colors">Features</a>

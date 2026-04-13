@@ -183,7 +183,9 @@ export default function AuthPage() {
             >
               {/* Logo */}
               <div className="flex items-center gap-3">
-                <img src="/docflow-logo.svg" alt="DocFlow" className="h-12 w-auto max-w-full" />
+                <button type="button" onClick={() => navigate("/")} className="flex items-center">
+                  <img src="/docflow-logo.svg" alt="DocFlow" className="h-10 w-auto sm:h-11 max-w-full" />
+                </button>
               </div>
 
               {/* Trust Badge */}

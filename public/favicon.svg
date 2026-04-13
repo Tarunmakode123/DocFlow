@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <rect width="64" height="64" rx="16" fill="#0F0F0F"/>
-  <path d="M18 16h18l10 10v22a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6V22a6 6 0 0 1 6-6Z" fill="#1A1A1A" stroke="#F97316" stroke-width="2"/>
-  <path d="M36 16v10h10" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M21 33h22M21 39h16M21 45h20" stroke="#D0D0D0" stroke-width="2" stroke-linecap="round"/>
-  <path d="M24 24l4 4 8-8" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="14" y="12" width="36" height="40" rx="9" fill="#25253D" stroke="#F97316" stroke-width="2"/>
+  <path d="M24 20h11l5 5v10H24V20Z" fill="#F5F5F7"/>
+  <path d="M35 20v5h5" stroke="#D5D9E3" stroke-width="1.8" stroke-linejoin="round"/>
+  <rect x="22" y="36" width="20" height="8" rx="4" fill="#F97316"/>
+  <path d="M26 40l3 3 3-3M31 40l3 3 3-3" stroke="#FFF3EA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="38" cy="40" r="2.8" fill="#FFF3EA"/>
+  <circle cx="38" cy="40" r="1.2" fill="#F97316"/>
 </svg>

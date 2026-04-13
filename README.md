@@ -1,73 +1,100 @@
-# Welcome to your Lovable project
+# DocFlow
 
-## Project info
+DocFlow is a professional academic document management platform built for institutions that need secure workflows, role-based access, deadline tracking, and AI-assisted document handling.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Live Demo
 
-## How can I edit this code?
+Production URL: <PASTE_YOUR_VERCEL_URL_HERE>
 
-There are several ways of editing your application.
+## Overview
 
-**Use Lovable**
+DocFlow helps administrators and students manage documents, reviews, submissions, and workflows in one place. The current build includes:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- A public SaaS-style landing page
+- Role-based authentication and routing
+- Admin and student dashboards
+- Document upload and analysis flows
+- Timeline, messaging, and workflow tools
+- Supabase-backed data and authentication
 
-Changes made via Lovable will be committed automatically to this repo.
+## Tech Stack
 
-**Use your preferred IDE**
+- Vite
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- Supabase
+- React Router
+- Framer Motion
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Getting Started
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Prerequisites
 
-Follow these steps:
+- Node.js 18 or newer
+- npm
+
+### Install dependencies
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Run locally
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Build for production
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```sh
+npm run build
+```
 
-**Use GitHub Codespaces**
+### Preview the production build
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```sh
+npm run preview
+```
 
-## What technologies are used for this project?
+### Run lint checks
 
-This project is built with:
+```sh
+npm run lint
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Run tests
 
-## How can I deploy this project?
+```sh
+npm run test
+```
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## Environment Variables
 
-## Can I connect a custom domain to my Lovable project?
+Create a local `.env` file if your setup requires Supabase credentials or other runtime values. Use `.env.example` as the reference for the expected variables.
 
-Yes, you can!
+## Deployment
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Deploy the app to Vercel and update the live URL above once the final domain is ready.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Recommended deployment flow:
+
+1. Push the latest code to GitHub.
+2. Import the repository into Vercel.
+3. Add the required environment variables.
+4. Deploy and replace the placeholder URL in this README.
+
+## Project Structure
+
+- `src/pages` - application pages and landing page
+- `src/components` - reusable UI and layout components
+- `src/contexts` - authentication and app state providers
+- `src/integrations` - Supabase client and related setup
+- `supabase` - database migrations and edge functions
+
+## Notes
+
+- The repository is maintained as a standalone project.
+- The README intentionally avoids platform-specific boilerplate so it can serve as the main project reference.

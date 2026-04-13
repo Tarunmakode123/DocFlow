@@ -308,8 +308,13 @@ export default function AdminSubmissions() {
   };
 
   const toCsvCell = (value: string | number | null | undefined) => {
-    const text = String(value ?? "").replace(/"/g, '""');
-    return `"${text}"`;
+    // Proper CSV escaping: wrap in quotes and escape any internal quotes
+    const text = String(value ?? "").trim();
+    // If contains comma, newline, or quote, need to escape
+    if (text.includes(",") || text.includes("\n") || text.includes('"')) {
+      return `"${text.replace(/"/g, '""')}"`;
+    }
+    return text;
   };
 
   const exportCsv = () => {
@@ -394,6 +399,35 @@ export default function AdminSubmissions() {
   };
 
   const persistReviewChanges = async (ids: string[], status: ReviewStatus, comment?: string) => {
+    // Conflict detection: check if reviews have been changed by another faculty
+    const { data: latestReviews, error: conflictCheckError } = await supabase
+      .from("student_document_reviews" as any)
+      .select("student_document_id, review_status, updated_at")
+      .in("student_document_id", ids);
+
+    if (conflictCheckError) {
+      return { ok: false as const, error: `Conflict check failed: ${conflictCheckError.message}` };
+    }
+
+    // Check for conflicts: if any submission is no longer in "pending" status
+    const conflictedIds: string[] = [];
+    (latestReviews || []).forEach((review: any) => {
+      const currentStatus = reviewsBySubmission[review.student_document_id]?.review_status;
+      // Conflict if: existing review and current status is not "pending"
+      if (review.review_status !== "pending" && review.review_status !== currentStatus) {
+        conflictedIds.push(review.student_document_id);
+      }
+    });
+
+    if (conflictedIds.length > 0) {
+      // Refresh the conflicted submissions
+      await loadData();
+      return {
+        ok: false as const,
+        error: `Conflict detected: ${conflictedIds.length} submission(s) were modified by another faculty member. Data refreshed.`,
+      };
+    }
+
     const reviewedAt = new Date().toISOString();
 
     const reviewPayload = ids.map((id) => ({

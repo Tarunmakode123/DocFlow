@@ -282,12 +282,13 @@ export default function HomePage() {
                 <span style={{ color: "#e0e0e0", fontSize: "14px", fontWeight: "500" }}>Trusted by academic teams across 200+ institutions</span>
               </motion.div>
 
-              <h1 className="font-display font-bold tracking-tight leading-[0.95] text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem]" style={{ color: "#ffffff" }}>
-                Transform academic document management into a streamlined workflow.
+              <h1 className="font-display font-bold tracking-tight leading-[0.92] text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem]" style={{ color: "#ffffff" }}>
+                <span className="block">One platform for</span>
+                <span className="block">academic document operations.</span>
               </h1>
 
-              <p className="mt-6 text-lg sm:text-xl lg:text-2xl max-w-xl leading-relaxed" style={{ color: "#d0d0d0" }}>
-                DocFlow automates document collection, AI extraction, faculty review, and student submissions so your team can move faster with fewer errors.
+              <p className="mt-6 text-lg sm:text-xl lg:text-2xl max-w-2xl leading-relaxed" style={{ color: "#d0d0d0" }}>
+                DocFlow turns intake, extraction, review, and submission into a governed workflow your team can actually trust.
               </p>
 
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="mt-8 flex flex-col sm:flex-row gap-4">
@@ -310,6 +311,10 @@ export default function HomePage() {
                   <span key={item} className="rounded-full border px-3 py-1.5" style={{ borderColor: "#2a2a2a", backgroundColor: "rgba(26, 26, 26, 0.5)", color: "#d0d0d0" }}>{item}</span>
                 ))}
               </motion.div>
+
+              <p className="mt-5 text-sm sm:text-base" style={{ color: "#8b929f" }}>
+                No credit card required. Typical onboarding takes 2-4 weeks and can scale across departments.
+              </p>
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">

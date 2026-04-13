@@ -4,7 +4,7 @@ DocFlow is a professional academic document management platform built for instit
 
 ## Live Demo
 
-Production URL: <PASTE_YOUR_VERCEL_URL_HERE>
+Production URL: https://doc-flow-zeta.vercel.app/
 
 ## Overview
 

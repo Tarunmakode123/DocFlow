@@ -589,9 +589,25 @@ export default function StudentFillTemplate() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h2 className="font-display text-xl font-semibold text-foreground">Page {currentPage} Fields</h2>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  {saving && <Loader2 className="h-3 w-3 animate-spin" />}
-                  {saved && <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-1 text-fc-success"><Check className="h-3 w-3" />Saved</motion.span>}
+                <div className="flex items-center gap-2">
+                  {openCorrections.length > 0 && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        const firstCorr = openCorrections[0];
+                        const field = fieldById[firstCorr.field_id];
+                        if (field) jumpToField(firstCorr.field_id, field.page_number);
+                      }}
+                      className="border-red-300 text-red-700 hover:bg-red-50"
+                    >
+                      Jump to Correction
+                    </Button>
+                  )}
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    {saving && <Loader2 className="h-3 w-3 animate-spin" />}
+                    {saved && <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-1 text-fc-success"><Check className="h-3 w-3" />Saved</motion.span>}
+                  </div>
                 </div>
               </div>
 
@@ -720,13 +736,29 @@ export default function StudentFillTemplate() {
                     <div className="space-y-4">
                       {catFields.map((field) => {
                         const isAuto = autoFilled.has(field.field_id);
+                        const correction = openCorrections.find((c) => c.field_id === field.field_id);
+                        const hasError = !!computedErrors[field.field_id];
+                        const borderColor = correction ? "border-red-300 bg-red-50/30" : hasError ? "border-destructive/40" : "border-fc-orange-200";
+                        const borderStyle = correction ? "border-l-[3px] border-red-400" : "border-l-[3px] border-fc-orange-200";
+                        
                         return (
-                          <div id={`field-${field.field_id}`} key={field.id} className="border-l-[3px] border-fc-orange-200 pl-4 space-y-1.5">
-                            <div className="flex items-center gap-2">
+                          <div id={`field-${field.field_id}`} key={field.id} className={`${borderStyle} pl-4 space-y-1.5 rounded-r p-3.5 ${borderColor}`}>
+                            <div className="flex items-center gap-2 flex-wrap">
                               {field.is_required && <span className="text-destructive text-lg leading-none">•</span>}
                               <Label className="text-sm text-foreground">{field.label}</Label>
                               {isAuto && <Badge className="text-[10px] bg-fc-orange-50 text-fc-orange-600 border border-fc-orange-200">Auto-filled</Badge>}
+                              {correction && (
+                                <Badge className="text-[10px] bg-red-100 text-red-700 border border-red-300 font-semibold">
+                                  ⚠️ Correction Needed
+                                </Badge>
+                              )}
                             </div>
+                            {correction && correction.comment && (
+                              <div className="mt-2 p-2.5 rounded-md bg-red-100 border border-red-200">
+                                <p className="text-xs font-medium text-red-900 mb-1">Faculty comment:</p>
+                                <p className="text-xs text-red-800">{correction.comment}</p>
+                              </div>
+                            )}
                             {field.field_type === "image" ? (
                               <ImageUploadField
                                 fieldId={field.field_id}
@@ -741,7 +773,7 @@ export default function StudentFillTemplate() {
                                 value={responses[field.field_id] || ""}
                                 onValueChange={(value) => handleFieldChange(field.field_id, field.global_key, value)}
                               >
-                                <SelectTrigger className="bg-background border-border focus-ring-orange">
+                                <SelectTrigger className={`bg-background focus-ring-orange ${correction ? "border-red-400 border-2" : "border-border"}`}>
                                   <SelectValue placeholder={field.detect_hint || `Select ${field.label.toLowerCase()}`} />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -757,19 +789,19 @@ export default function StudentFillTemplate() {
                                 value={responses[field.field_id] || ""}
                                 onChange={(e) => handleFieldChange(field.field_id, field.global_key, e.target.value)}
                                 placeholder={field.detect_hint || `Enter ${field.label.toLowerCase()}`}
-                                className="bg-background border-border focus-ring-orange"
+                                className={`bg-background focus-ring-orange ${correction ? "border-red-400 border-2" : "border-border"}`}
                               />
                             ) : field.field_type === "date" ? (
-                              <Input type="date" value={responses[field.field_id] || ""} onChange={(e) => handleFieldChange(field.field_id, field.global_key, e.target.value)} className="bg-background border-border focus-ring-orange" />
+                              <Input type="date" value={responses[field.field_id] || ""} onChange={(e) => handleFieldChange(field.field_id, field.global_key, e.target.value)} className={`bg-background focus-ring-orange ${correction ? "border-red-400 border-2" : "border-border"}`} />
                             ) : (
                               <Input
                                 type={field.field_type === "number" ? "number" : "text"}
                                 value={responses[field.field_id] || ""}
                                 onChange={(e) => handleFieldChange(field.field_id, field.global_key, e.target.value)}
                                 placeholder={field.detect_hint || `Enter ${field.label.toLowerCase()}`}
-                                className="bg-background border-border focus-ring-orange"
+                                className={`bg-background focus-ring-orange ${correction ? "border-red-400 border-2" : "border-border"}`}
                               />
-                            )}
+                            )}}
                             {computedErrors[field.field_id] && (
                               <p className="text-xs text-destructive">{computedErrors[field.field_id]}</p>
                             )}
